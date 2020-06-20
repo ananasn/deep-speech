@@ -88,7 +88,38 @@ arecord test.mp3
 ```
 ffmpeg -i test.mp3 -acodec pcm_s16le -ar 16000 test.wav
 ```
-3. https://github.com/mozilla/voice-corpus-tool
+3. Для увеличения датасета будем использовать voice-corpus-tool. Устанавливаем:
+```
+git clone https://github.com/mozilla/voice-corpus-tool
+cd ./voice-corpus-tool
+pip3 install -r requirements.txt
+```
+4. Скачиваем архив с шумами https://jmvalin.ca/demo/rnnoise/ (15 ГБ)
+или берем уже сконвертированные мной из ./learning/data/wav/noise
+
+5. Конертруем raw в wav. 
+
+Для этого скрипт `./learning/scripts/./convert.sh` 
+помещаем в директорию с raw файлами. 
+Внутри скрипта можно поменять маску, чтобы конвертить определенные файлы.
+На выходе внутри директори появится директория noise с wav файлами.
+````
+./convert.sh
+````
+ 6. Создаем csv для датасета шумов
+ ```
+cd ./learning/scripts
+./generate_csv.sh ../data/wav/noise
+mv noise.csv ../data/csv/
+```
+
+7. Генерируем зашумленные файлы из одного ru-train.csv. 
+В ru-train.csv должно быть записей столько же скольк в noise.csv.
+Папки processed и файла processed.сsv не должно существовать.
+
+ ```
+ ./voice.py add ../learning/data/ru-train.csv augment ../learning/data/csv/noise.csv write ../learning/data/wav/processed
+```
 
 4. Создаем csv-файл датасета следующего формата
 ```csv
