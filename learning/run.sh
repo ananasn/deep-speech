@@ -20,7 +20,7 @@ python -u DeepSpeech.py --noshow_progressbar \
   --train_batch_size 1 \
   --test_batch_size 1 \
   --n_hidden 100 \
-  --epochs 500 \
+  --epochs 30 \
   --checkpoint_dir ../learning/checkpoint \
   --export_dir ../export \
   --data_aug_features_additive 0.3 \

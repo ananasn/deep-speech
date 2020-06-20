@@ -110,7 +110,7 @@ pip3 install -r requirements.txt
  ```
 cd ./learning/scripts
 ./generate_csv.sh ../data/wav/noise
-mv noise.csv ../data/csv/
+mv noise.csv ../data/wav
 ```
 
 7. Генерируем зашумленные файлы из одного ru-train.csv. 
@@ -121,7 +121,7 @@ mv noise.csv ../data/csv/
  ./voice.py add ../learning/data/ru-train.csv augment ../learning/data/csv/noise.csv write ../learning/data/wav/processed
 ```
 
-4. Создаем csv-файл датасета следующего формата
+9. Создаем csv-файл датасета следующего формата или используем получнный на предыдущем шаге
 ```csv
 wav_filename,wav_filesize,transcript
 ru.wav,0,бедняга ребят на его месте должен был быть я
