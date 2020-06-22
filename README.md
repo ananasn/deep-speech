@@ -87,6 +87,11 @@ arecord test.mp3
 2. Конвертируем в wav  (16bit, mono, yadda-yadda)
 ```
 ffmpeg -i test.mp3 -acodec pcm_s16le -ar 16000 test.wav
+
+или
+
+for file in *.mp3; do ffmpeg -i "$file" -acodec pcm_s16le -ar 16000 "$file".wav; done
+
 ```
 3. Для увеличения датасета будем использовать voice-corpus-tool. Устанавливаем:
 ```
@@ -115,12 +120,14 @@ mv noise.csv ../data/wav
 
 7. Генерируем зашумленные файлы из одного ru-train.csv. 
 В ru-train.csv должно быть записей столько же скольк в noise.csv.
-Папки processed и файла processed.сsv не должно существовать.
+Папки processed и файла processed.сsv не должно существовать. 
 
  ```
- ./voice.py add ../learning/data/ru-train.csv augment ../learning/data/csv/noise.csv write ../learning/data/wav/processed
-```
+ ./voice.py add ../learning/data/ru-train.csv augment ../learning/data/wav/noise.csv write ../learning/data/wav/processed
+или с усилением шума
+ ./voice.py add ../learning/data/ru-train.csv augment ../learning/data/wav/noise.csv -gain 2 write ../learning/data/wav/processed
 
+```
 9. Создаем csv-файл датасета следующего формата или используем получнный на предыдущем шаге
 ```csv
 wav_filename,wav_filesize,transcript
@@ -131,6 +138,16 @@ wav_filename,wav_filesize,transcript -- заголовок
 ru.wav -- путь до файла
 
 "бедняга ребят на его месте должен был быть я" -- транскрипция
+
+10. Датасет лучше разделить на три части
+* train -- 70 %
+* dev -- 20 %
+* test -- 10 %
+
+Для каждой части делается отдельный csv  и в  run.sh казывается путь соответствующими флагами:
+* --train_files
+* --dev_files
+* --test_files
 #### Обучаем модель
 1. Очищаем папку checkpont, если хотим обучать сначала
  
@@ -139,7 +156,7 @@ ru.wav -- путь до файла
 cd ../DeepSpeech/
 ./../learning/run.sh 
 ```
-2. Конвертируем модель в .pbmm
+3. Конвертируем модель в .pbmm
 ```
 python ./util/taskcluster.py --source tensorflow --artifact convert_graphdef_memmapped_format --branch r1.15 --target .
 sudo chmod +x convert_graphdef_memmapped_format 
