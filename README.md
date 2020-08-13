@@ -181,6 +181,10 @@ sudo chmod +x convert_graphdef_memmapped_format
 ```
 pip3 install webrtcvad deepspeech pyqt5
 ```
+На Raspberry pyqt5 ставм так:
+```
+sudo apt install python3-pyqt5
+```
 4. Запускаем
 ```
  python3 audioTranscript_gui.py 
