@@ -84,6 +84,14 @@ python3  ./learning/scripts/generate_package.py --alphabet learning/data/alphabe
 ```
 arecord test.mp3
 ```
+для Raspberry с USB микрофоном:
+```
+arecord --device=hw:1,0  --format S16_LE test.mp3
+```
+Имя устроства можно найти с помощью
+```
+arecord --list-devices
+```
 2. Конвертируем в wav  (16bit, mono, yadda-yadda)
 ```
 ffmpeg -i test.mp3 -acodec pcm_s16le -ar 16000 test.wav
