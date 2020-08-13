@@ -86,7 +86,7 @@ arecord test.mp3
 ```
 для Raspberry с USB микрофоном:
 ```
-arecord --device=hw:1,0  --format S16_LE test.mp3
+arecord --device=hw:1,0 --format S16_LE --rate 16000 -c1 test.wav
 ```
 Имя устроства можно найти с помощью
 ```
