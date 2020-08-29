@@ -84,7 +84,7 @@ python3  ./learning/scripts/generate_package.py --alphabet learning/data/alphabe
 ```
 arecord test.mp3
 ```
-для Raspberry с USB микрофоном:
+для Raspberry с USB микрофоном (```http://wiki.sunfounder.cc/index.php?title=To_use_USB_mini_microphone_on_Raspbian```):
 ```
 arecord --device=hw:1,0 --format S16_LE --rate 16000 -c1 test.wav
 ```
