@@ -185,7 +185,7 @@ pip3 install webrtcvad deepspeech pyqt5
 ```
 sudo apt install python3-pyqt5
 ```
-4. Запускаем
+4. Запускаем из директории ```~/deep-speech/vad_transcriber```
 ```
  python3 audioTranscript_gui.py 
  ```
